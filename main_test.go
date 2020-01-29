@@ -10,13 +10,28 @@ func Test_emptyQueue(t *testing.T) {
 	if p.len() != 1 {
 		t.Error("queue length must be 0, got: ", p.len())
 	}
+	if p.firstElement()!=p.first.value{
+		t.Error("when no one is in line, no one will be first in line",p.first.value)
+	}
+	if p.lastElement()!=p.first.value{
+		t.Error("when no one is in line no one will be last in line",p.last.value)
+	}
 }
 
 func Test_addInQueue(t *testing.T) {
 	p := queue{}
 	p.equeue(1)
+	if p.len()!=1{
+		t.Error("when there is one person in line then the length of the queue is 1",p.len())
+	}
 	if p.firstElement() != p.lastElement() {
-		t.Error("after one person appears in the queue, the queue length will be 1,  got: ", p.len())
+		t.Error("after one person appears in the queue, the queue length will be 1,  got: ", p.firstElement() ,p.lastElement())
+	}
+	if p.firstElement()!=p.first.value{
+		t.Error("if there is one person in line, then he’s the first",p.firstElement())
+	}
+	if p.lastElement()!=p.first.value{
+		t.Error("if there is one person in line, then he is the first and last",p.lastElement())
 	}
 	p.dequeue()
 	if p.len() != 0 {

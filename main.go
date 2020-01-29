@@ -1,64 +1,65 @@
 package main
 
 type queue struct {
-	first *listQueue
-	last  *listQueue
+	first *queueNode
+	last  *queueNode
 	size  int
 }
-type listQueue struct {
-	next  *listQueue
-	prev  *listQueue
+type queueNode struct {
+	next  *queueNode
+	prev  *queueNode
 	value interface{}
 }
 
-func (Queue *queue) len() int {
-	return Queue.size
+
+func (receiver *queue) len() int {
+	return receiver.size
 }
-func (Queue *queue) firstElement() *listQueue {
-	return Queue.first
+func (receiver *queue) firstElement() interface{} {
+	return receiver.first.value
 }
-func (Queue *queue) lastElement() *listQueue {
-	return Queue.last
+func (receiver *queue) lastElement() interface{} {
+	return receiver.last.value
 }
-func (Queue *queue) equeue(value interface{}) {
-	if Queue.len() == 0 {
-		Queue.first = &listQueue{
+func (receiver *queue) equeue(value interface{}) {
+	if receiver.len() == 0 {
+		receiver.first = &queueNode{
 			next:  nil,
 			prev:  nil,
 			value: value,
 		}
-		Queue.last = Queue.first
-		Queue.size++
+		receiver.last = receiver.first
+		receiver.size++
 		return
 	}
-	Queue.size++
-	current := Queue.first
+	receiver.size++
+	current := receiver.first
 	for {
 		if current.next == nil {
-			current.next = &listQueue{
+			current.next = &queueNode{
 				next:  nil,
 				prev:  current,
 				value: value,
 			}
-			Queue.last = current.next
+			receiver.last = current.next
 			return
 		}
 		current = current.next
 	}
 }
-func (Queue *queue) dequeue() {
-	if Queue.len() == 0 {
-		return
+func (receiver *queue) dequeue() interface{} {
+	if receiver.len() == 0 {
+		return queue{}
 	}
-	if Queue.len() == 1 {
-		Queue.first = nil
-		Queue.last = nil
-		Queue.size--
-		return
+	if receiver.len() == 1 {
+		receiver.first = nil
+		receiver.last = nil
+		receiver.size--
+		return queue{}
 	}
-	Queue.first = Queue.first.next
-	Queue.first.prev = nil
-	Queue.size--
-
+	receiver.first = receiver.first.next
+	receiver.first.prev = nil
+	receiver.size--
+return queue{}
 }
 func main() {}
