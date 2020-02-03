@@ -24,6 +24,7 @@ func (receiver *queue) lastElement() interface{} {
 func (receiver *queue) equeue(value interface{}) {
 	if receiver.len() == 0 {
 		receiver.first = &queueNode{
+
 			next:  nil,
 			prev:  nil,
 			value: value,
@@ -49,17 +50,19 @@ func (receiver *queue) equeue(value interface{}) {
 }
 func (receiver *queue) dequeue() interface{} {
 	if receiver.len() == 0 {
-		return queue{}
+		return nil
 	}
 	if receiver.len() == 1 {
+		firstPerson:=receiver.first.value
 		receiver.first = nil
 		receiver.last = nil
 		receiver.size--
-		return queue{}
+		return firstPerson
 	}
+	firstPerson:=receiver.first.value
 	receiver.first = receiver.first.next
 	receiver.first.prev = nil
 	receiver.size--
-return queue{}
+return firstPerson
 }
 func main() {}
