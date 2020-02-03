@@ -37,6 +37,7 @@ func Test_addInQueue(t *testing.T) {
 	if p.len() != 0 {
 		t.Error("want 0, got:", p.len())
 	}
+
 }
 
 func Test_addSeveralQueue(t *testing.T) {
@@ -50,8 +51,19 @@ func Test_addSeveralQueue(t *testing.T) {
 		t.Error("after adding three elements, the length of the queue should be 3, got:  ", p.len())
 	}
 
-	p.dequeue()
+	firsPerson:=p.dequeue()
+	if firsPerson!=1 {
+		t.Error("The firs person in queue 1, got: ",firsPerson)
+	}
+	if p.firstElement()!=2{
+		t.Error("after that, the first person left the party, the second in line should be the first",2)
+	}
+	if p.lastElement()!=3{
+		t.Error("after the first person left the line the last person should move in front",3)
+	}
 	if p.len() != 2 {
 		t.Error("after deleting one element, the queue length should be 2,  got:  ", p.len())
 	}
+
+
 }
